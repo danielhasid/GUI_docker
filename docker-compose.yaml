@@ -1,4 +1,0 @@
-services:
-  paythonapp:
-  build: ./
-   command:pytest
