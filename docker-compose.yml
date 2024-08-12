@@ -1,9 +1,9 @@
 version: '3'
 services:
   app1:
-    image: gui-img3:latest
+    image: api-test:latest
     command: pytest -vs
 
   app2:
-    image: wizary-paythonapp:latest
-    command: pytest
+    image: gui-img3:latest
+    command: pytest -v
