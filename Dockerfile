@@ -1,5 +1,5 @@
 FROM python:3.10-slim
-WORKDIR /app
+WORKDIR /
 COPY reqs.txt .
 RUN pip install -r reqs.txt
 COPY . .
@@ -10,6 +10,8 @@ apt install -y ./google-chrome-stable_current_amd64.deb && \
 rm google-chrome-stable_current_amd64.deb && \
 apt-get clean
 
+RUN git clone https://github.com/danielhasid/GUI_docker.git
+WORKDIR /GUI_docker
 
 
 
