@@ -2,8 +2,10 @@ version: '3'
 services:
   app1:
     image: daniel4-img:latest
-    command: pytest
+    command: pytest -vs
 
   app2:
     image: wizary-paythonapp:latest
     command: pytest
+
+
