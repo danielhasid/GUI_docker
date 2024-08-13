@@ -1,17 +1,18 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.10-slim'
-            args '-u root' // Run the container as root
-        }
-    }
+    agent any
 
     stages {
         stage('Setup') {
             steps {
-                // Install Python and pip with root privileges
-                sh 'apt-get update && apt-get install -y python3 python3-pip'
-            }
+                // Install Python and pip (for Debian/Ubuntu-based systems)
+                apt-get update && apt-get install -y \
+                    wget \
+                    unzip \
+                    git && \
+                    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+                    apt install -y ./google-chrome-stable_current_amd64.deb && \
+                    rm google-chrome-stable_current_amd64.deb && \
+                    apt-get clean            }
         }
 
         stage('Checkout') {
@@ -22,7 +23,8 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'pip install -r reqs.txt'
+                // Use Python3 and pip3
+                sh 'pip3 install -r reqs.txt'
             }
         }
 
