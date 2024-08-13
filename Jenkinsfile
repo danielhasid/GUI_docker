@@ -16,7 +16,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                  echo 'build'
+                  docker build -t frontend .
 
             }
         }
