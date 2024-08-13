@@ -3,18 +3,12 @@ pipeline {
 
     stages {
         stage('Setup') {
-            steps {
-
-
-                // Install necessary system packages with root privileges
-                sh '''
-                    apt-get update && \
-                    apt-get install -y python3 python3-pip wget unzip && \
-                    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-                    apt install -y ./google-chrome-stable_current_amd64.deb && \
-                    rm google-chrome-stable_current_amd64.deb && \
-                    apt-get clean
-                '''
+            steps steps {
+                sh 'apt-get update && apt-get install -y python3 python3-pip wget unzip'
+                sh 'wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'
+                sh 'apt install -y ./google-chrome-stable_current_amd64.deb'
+                sh 'rm google-chrome-stable_current_amd64.deb'
+                sh 'apt-get clean'
             }
         }
 
