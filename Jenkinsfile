@@ -9,8 +9,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'frontend', url: 'https://github.com/danielhasid/GUI_docker.git']])
-            }
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/danielhasid/GUI_docker.git']])            }
         }
 
         stage('Build') {
