@@ -2,33 +2,35 @@ pipeline {
     agent any
 
     stages {
+        stage('Setup') {
+            steps {
+                // Install Python and pip (for Debian/Ubuntu-based systems)
+                sh 'apt-get update && apt-get install -y python3 python3-pip'
+            }
+        }
+
         stage('Checkout') {
             steps {
-                // Checkout the code from the GitHub repository
                 git url: 'https://github.com/danielhasid/GUI_docker.git', branch: 'main'
             }
         }
 
         stage('Build') {
             steps {
-                // Build the application, e.g., installing dependencies
-                sh 'pip install -r reqs.txt'
+                // Use Python3 and pip3
+                sh 'pip3 install -r reqs.txt'
             }
         }
 
         stage('Test') {
             steps {
-                // Run tests using pytest
-                sh 'pytest -v -s'
+                sh 'pytest'
             }
         }
 
         stage('Deploy') {
             steps {
-                // Deployment steps go here, e.g., copying files, running scripts, etc.
                 echo 'Deploying application...'
-                // Example deployment command (modify based on your deployment needs)
-                // sh 'scp -r . user@remote_server:/path/to/deploy'
             }
         }
     }
