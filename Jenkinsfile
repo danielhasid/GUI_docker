@@ -1,9 +1,20 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'python:3.10-slim'
+            args '-u root'
+        }
+    }
 
     stages {
         stage('Setup') {
             steps {
+                // Verify current user is root
+                sh 'whoami'
+
+                // Fix directory permissions just in case
+                sh 'mkdir -p /var/lib/apt/lists/partial && chmod -R 755 /var/lib/apt/lists'
+
                 // Install necessary system packages with root privileges
                 sh '''
                     apt-get update && \
@@ -13,7 +24,7 @@ pipeline {
                     rm google-chrome-stable_current_amd64.deb && \
                     apt-get clean
                 '''
-                 }
+            }
         }
 
         stage('Checkout') {
@@ -24,30 +35,4 @@ pipeline {
 
         stage('Build') {
             steps {
-                // Use Python3 and pip3
-                sh 'pip3 install -r reqs.txt'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh 'pytest'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying application...'
-            }
-        }
-    }
-
-    post {
-        success {
-            echo 'Pipeline completed successfully!'
-        }
-        failure {
-            echo 'Pipeline failed. Please check the logs.'
-        }
-    }
-}
+     
