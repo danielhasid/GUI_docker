@@ -4,15 +4,16 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-                // Install Python and pip (for Debian/Ubuntu-based systems)
-                apt-get update && apt-get install -y \
-                    wget \
-                    unzip \
-                    git && \
+                // Install necessary system packages with root privileges
+                sh '''
+                    apt-get update && \
+                    apt-get install -y python3 python3-pip wget unzip && \
                     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
                     apt install -y ./google-chrome-stable_current_amd64.deb && \
                     rm google-chrome-stable_current_amd64.deb && \
-                    apt-get clean            }
+                    apt-get clean
+                '''
+                 }
         }
 
         stage('Checkout') {
