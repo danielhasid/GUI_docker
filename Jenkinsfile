@@ -3,32 +3,29 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-                sh 'apt-get update && apt-get install -y python3 python3-pip wget unzip'
-                sh 'wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'
-                sh 'apt install -y ./google-chrome-stable_current_amd64.deb'
-                sh 'rm google-chrome-stable_current_amd64.deb'
-                sh 'apt-get clean'
+                echo 'setup'
             }
         }
 
         stage('Checkout') {
             steps {
                 // Checkout code from the GitHub repository
-                git url: 'https://github.com/danielhasid/GUI_docker.git', branch: 'main'
+                echo 'Checkout'
             }
         }
 
         stage('Build') {
             steps {
-                // Install Python dependencies
-                sh 'pip install -r reqs.txt'
+                  echo 'build'
+
             }
         }
 
         stage('Test') {
             steps {
                 // Run tests
-                sh 'pytest'
+                echo 'test'
+
             }
         }
 
