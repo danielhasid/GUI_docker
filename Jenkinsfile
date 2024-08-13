@@ -1,14 +1,10 @@
 pipeline {
     agent any 
-    
+
     stages {
         stage('Setup') {
             steps {
-                // Verify current user is root
-                sh 'whoami'
 
-                // Fix directory permissions just in case
-                sh 'mkdir -p /var/lib/apt/lists/partial && chmod -R 755 /var/lib/apt/lists'
 
                 // Install necessary system packages with root privileges
                 sh '''
