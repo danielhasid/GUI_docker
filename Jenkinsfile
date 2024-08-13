@@ -9,8 +9,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                // Checkout code from the GitHub repository
-                echo 'Checkout'
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'frontend', url: 'https://github.com/danielhasid/GUI_docker.git']])
             }
         }
 
